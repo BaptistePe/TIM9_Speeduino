@@ -806,7 +806,10 @@ void readAuxCanBus()
           currentStatus.canin[i] = ((inMsg.buf[configPage9.caninput_source_start_byte[i]] << 8) | (inMsg.buf[configPage9.caninput_source_start_byte[i] + 1]));
         }
       }
+      /* TIM: feat: injection button */
+      if (i == 0) { aux0LastCanUpdate = millis(); }
+      /* TIM */
     }
-  } 
+  }
 }
 #endif

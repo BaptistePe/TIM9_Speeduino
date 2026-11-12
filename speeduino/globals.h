@@ -1604,6 +1604,10 @@ extern bool camEmulate;
 
 //#endif
 
+/* TIM: feat: injection button */
+extern uint32_t aux0LastCanUpdate; //Last CAN update of aux0 (millis)
+/* TIM */
+
 extern struct statuses currentStatus; //The global status object
 extern struct config2 configPage2;
 extern struct config4 configPage4;

@@ -907,8 +907,10 @@ void __attribute__((always_inline)) loop(void)
       }
 
       /* TIM: feat: injection button */
-      if (currentStatus.canin[0] != 1) { // aux0
+      //Cut fuel and spark if button off or CAN lost
+      if ((currentStatus.canin[0] != 1) || ((millis() - aux0LastCanUpdate) > 750)) { // aux0
         currentStatus.PW1 = 0;
+        ignitionChannelsOn = 0;
       }
       /* TIM */
 
