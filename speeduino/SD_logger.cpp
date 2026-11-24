@@ -28,11 +28,13 @@ constexpr char header_7[] PROGMEM = "Battery V";
 constexpr char header_8[] PROGMEM = "Aux0";
 constexpr char header_9[] PROGMEM = "Aux1";
 constexpr char header_10[] PROGMEM = "Aux2";
-constexpr char header_11[] PROGMEM = "Advance 1";
-constexpr char header_12[] PROGMEM = "Sync status";
-constexpr char header_13[] PROGMEM = "CumInjTime1";
-constexpr char header_14[] PROGMEM = "CumInjTime2";
-constexpr char header_15[] PROGMEM = "nbInjection";
+constexpr char header_11[] PROGMEM = "Aux3";
+constexpr char header_12[] PROGMEM = "Aux4";
+constexpr char header_13[] PROGMEM = "Aux5";
+constexpr char header_14[] PROGMEM = "Sync status";
+constexpr char header_15[] PROGMEM = "CumInjTime1";
+constexpr char header_16[] PROGMEM = "CumInjTime2";
+constexpr char header_17[] PROGMEM = "nbInjection";
 
 constexpr const char* header_table[] PROGMEM = { header_0,\
                                               header_1,\
@@ -50,6 +52,8 @@ constexpr const char* header_table[] PROGMEM = { header_0,\
                                               header_13,\
                                               header_14,\
                                               header_15,\
+                                              header_16,\
+                                              header_17,\
                                             };
 
 static_assert(sizeof(header_table) == (sizeof(char*) * SD_LOG_NUM_FIELDS), "Number of header table titles must match number of log fields");
@@ -355,12 +359,13 @@ void writeSDLogEntry()
         rb.print(currentStatus.battery10 / 10U);
       #endif
       rb.print(',');
-      // Aux0, Aux1, Aux2 (CAN inputs 0-2)
+      // Aux0 to Aux5 (aux inputs 0-5), same columns as the TunerStudio log
       rb.print(currentStatus.canin[0]); rb.print(',');
       rb.print(currentStatus.canin[1]); rb.print(',');
       rb.print(currentStatus.canin[2]); rb.print(',');
-      // Advance 1
-      rb.print(currentStatus.advance1); rb.print(',');
+      rb.print(currentStatus.canin[3]); rb.print(',');
+      rb.print(currentStatus.canin[4]); rb.print(',');
+      rb.print(currentStatus.canin[5]); rb.print(',');
       // Sync status: halfSync(bit4 of status3) + (hasSync * 2)
       rb.print((uint8_t)((BIT_CHECK(currentStatus.status3, BIT_STATUS3_HALFSYNC) ? 1U : 0U) + (currentStatus.hasSync ? 2U : 0U))); rb.print(',');
       // CumInjTime1: lower 16 bits of cumulativePW (us, wraps at 65535)

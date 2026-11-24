@@ -43,9 +43,9 @@
     #define SD_CS_PIN 10 //This is a made up value for now
 #endif
 
-#define SD_LOG_NUM_FIELDS   16 /**< The number of fields that are in the log (matches TunerStudio MSL format). */
+#define SD_LOG_NUM_FIELDS   18 /**< The number of fields that are in the log (matches TunerStudio MSL format). */
 #ifndef UNIT_TEST // Scope guard for unit testing
-  #define SD_LOG_ENTRY_SIZE   100 /**< Upper bound in bytes of the CSV data content per log row. */
+  #define SD_LOG_ENTRY_SIZE   120 /**< Upper bound in bytes of the CSV data content per log row. */
 #else
   #define SD_LOG_ENTRY_SIZE   1 /**< The size of the live data packet used by the SD card.*/
 #endif
