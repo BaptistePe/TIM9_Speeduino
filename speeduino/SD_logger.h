@@ -43,7 +43,7 @@
     #define SD_CS_PIN 10 //This is a made up value for now
 #endif
 
-#define SD_LOG_NUM_FIELDS   18 /**< The number of fields that are in the log (matches TunerStudio MSL format). */
+#define SD_LOG_NUM_FIELDS   19 /**< The number of fields that are in the log (matches TunerStudio MSL format). */
 #ifndef UNIT_TEST // Scope guard for unit testing
   #define SD_LOG_ENTRY_SIZE   120 /**< Upper bound in bytes of the CSV data content per log row. */
 #else

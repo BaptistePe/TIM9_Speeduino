@@ -20,21 +20,22 @@
 constexpr char header_0[] PROGMEM = "SecL";
 constexpr char header_1[] PROGMEM = "RPM";
 constexpr char header_2[] PROGMEM = "TPS";
-constexpr char header_3[] PROGMEM = "VE (Current)";
-constexpr char header_4[] PROGMEM = "PW";
-constexpr char header_5[] PROGMEM = "Duty Cycle";
-constexpr char header_6[] PROGMEM = "Advance (Current)";
-constexpr char header_7[] PROGMEM = "Battery V";
-constexpr char header_8[] PROGMEM = "Aux0";
-constexpr char header_9[] PROGMEM = "Aux1";
-constexpr char header_10[] PROGMEM = "Aux2";
-constexpr char header_11[] PROGMEM = "Aux3";
-constexpr char header_12[] PROGMEM = "Aux4";
-constexpr char header_13[] PROGMEM = "Aux5";
-constexpr char header_14[] PROGMEM = "Sync status";
-constexpr char header_15[] PROGMEM = "CumInjTime1";
-constexpr char header_16[] PROGMEM = "CumInjTime2";
-constexpr char header_17[] PROGMEM = "nbInjection";
+constexpr char header_3[] PROGMEM = "CLT";
+constexpr char header_4[] PROGMEM = "VE (Current)";
+constexpr char header_5[] PROGMEM = "PW";
+constexpr char header_6[] PROGMEM = "Duty Cycle";
+constexpr char header_7[] PROGMEM = "Advance (Current)";
+constexpr char header_8[] PROGMEM = "Battery V";
+constexpr char header_9[] PROGMEM = "Aux0";
+constexpr char header_10[] PROGMEM = "Aux1";
+constexpr char header_11[] PROGMEM = "Aux2";
+constexpr char header_12[] PROGMEM = "Aux3";
+constexpr char header_13[] PROGMEM = "Aux4";
+constexpr char header_14[] PROGMEM = "Aux5";
+constexpr char header_15[] PROGMEM = "Sync status";
+constexpr char header_16[] PROGMEM = "CumInjTime1";
+constexpr char header_17[] PROGMEM = "CumInjTime2";
+constexpr char header_18[] PROGMEM = "nbInjection";
 
 constexpr const char* header_table[] PROGMEM = { header_0,\
                                               header_1,\
@@ -54,6 +55,7 @@ constexpr const char* header_table[] PROGMEM = { header_0,\
                                               header_15,\
                                               header_16,\
                                               header_17,\
+                                              header_18,\
                                             };
 
 static_assert(sizeof(header_table) == (sizeof(char*) * SD_LOG_NUM_FIELDS), "Number of header table titles must match number of log fields");
@@ -321,6 +323,8 @@ void writeSDLogEntry()
         rb.print(currentStatus.TPS / 2U);
       #endif
       rb.print(',');
+      // CLT: coolant temperature in degrees C, as the TunerStudio log (channel coolant = coolantRaw - 40)
+      rb.print(currentStatus.coolant); rb.print(',');
       // VE (Current)
       rb.print(currentStatus.VE); rb.print(',');
       // PW: convert from us to ms
